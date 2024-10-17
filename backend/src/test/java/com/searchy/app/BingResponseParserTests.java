@@ -14,11 +14,19 @@ public class BingResponseParserTests {
     }
 
     @Test
-    void should_parse_no_of_results_to_long() {
+    void should_parse_no_of_results_no_special_characters() {
+        var input = "<span class=\"sb_count\">About 100 results</span>";
+        var result = new BingResponseParser().parse(input);
+
+        assertEquals(100, result);
+    }
+
+    @Test
+    void should_parse_no_of_results_with_thousand_separator_comma() {
         var input = "<span class=\"sb_count\">About 30,700 results</span>";
         var result = new BingResponseParser().parse(input);
 
-        assertEquals(30700L, result);
+        assertEquals(30700, result);
     }
 
     @Test
@@ -26,7 +34,7 @@ public class BingResponseParserTests {
         var input = "<li class=\"b_no\" data-bm=\"4\"><h1>There are no results for <strong data-bm=\"23\">\"&gt;ASdaskldkhj\"</strong></h1><ul>";
         var result = new BingResponseParser().parse(input);
 
-        assertEquals(0L, result);
+        assertEquals(0, result);
     }
 
     @Test
