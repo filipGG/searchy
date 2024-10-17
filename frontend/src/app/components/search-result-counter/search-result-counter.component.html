@@ -1,0 +1,5 @@
+<input type="text" [formControl]="searchControl" />
+<span *ngIf="loading"> Loading... </span>
+<span *ngIf="error"> {{ error }}</span>
+
+<app-result [viewModel]="viewModel$ | async"></app-result>
